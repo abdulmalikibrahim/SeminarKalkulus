@@ -1,0 +1,104 @@
+.bg-transparent {
+    background: rgba(0, 0, 0, 0) !important;
+    box-shadow: none !important;
+}
+.bg-container-swal {
+    background: rgba(255, 255, 255, 0.816) !important;
+    box-shadow: none !important;
+    z-index: 400;
+}
+.bg-page-image {
+    background-color:#ffece1;
+    background-image:url('https://d1oco4z2z1fhwp.cloudfront.net/templates/default/8491/web-color-background.jpg');
+    background-size:cover;
+    background-repeat:no-repeat;
+}
+.bg-orange{
+    background-color:#f8ad82 !important;
+    color: #000 !important;
+}
+.bg-orange-soft{
+    background-color:#f7c7ab !important;
+    color: #000 !important;
+    padding-top: .5rem !important;
+    padding-bottom: .5rem !important;
+}
+.bg-orange-soft:hover{
+    background-color:#f3a87d !important;
+    color: #000 !important;
+    padding-top: .5rem !important;
+    padding-bottom: .5rem !important;
+}
+
+.name-participant {
+    color: #0F3077;
+    position: absolute;
+    left: 50%; /* Move the text 50% from the left edge of the container */
+    transform: translateX(-50%); /* Offset the text by 50% of its width */
+    text-align: center; /* Center-align the text itself */
+    top: 36%; /* Optional: Vertically center the text */
+    font-size: 37px;
+    font-weight: bold;
+    width: 90%;
+}
+
+@media (max-width: 768px) {
+    /* For tablets */
+    .name-participant {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* For mobile phones */
+    .name-participant {
+        font-size: 15px;
+    }
+}
+
+.signature-ketua {
+    width: 8%;
+    position: absolute;
+    left: 28%;
+    transform: translateX(-70%);
+    bottom: 9%;
+}
+
+.signature-rektor {
+    width: 8%;
+    position: absolute;
+    right: 20%;
+    transform: translateX(-70%);
+    bottom: 9%;
+}
+.card-loading {
+  margin: 0px;
+  width: 100%;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+}
+
+.card-loading .content {
+  padding: 20px 30px;
+}
+
+@keyframes shine {
+  to {
+    background-position-x: -200%;
+  }
+}
+
+.card-loading.is-loading .image{
+  background: #eee;
+  background: linear-gradient(110deg, #ececec 8%, #f5f5f5 18%, #ececec 33%);
+  border-radius: 5px;
+  background-size: 200% 100%;
+  animation: 1.5s shine linear infinite;
+}
+
+.card-loading.is-loading .image {
+  height: 20rem;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
