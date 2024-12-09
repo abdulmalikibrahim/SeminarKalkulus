@@ -62,7 +62,7 @@ const Header = () => {
             </h2>
         </div>
         <div className="bee-block bee-block-3 bee-paragraph">
-            <p> March, 20 <sup>th</sup> 2024 | 3:00 p.m. EST </p>
+            <p> Dec, 22 <sup>th</sup> 2024 | 6:30 p.m. EST </p>
         </div>
         <div className="bee-block bee-block-4 bee-spacer">
             <div className="spacer" style={{ height: 15 }} />

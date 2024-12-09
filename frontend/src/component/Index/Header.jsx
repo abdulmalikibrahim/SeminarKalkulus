@@ -45,10 +45,7 @@ const Header = () => {
                         <div className="bee-block bee-block-6 bee-icons">
                             <div className="bee-icon bee-icon-last">
                                 <div className="bee-content">
-                                    <div className="bee-icon-image">
-                                        <img alt="Calendar icon" height="64px" src="images/4day-calendar-icon.png" width="auto" />
-                                    </div>
-                                    <div className="bee-icon-label bee-icon-label-right"> March, 20th 2024 | 3:00 p.m. EST </div>
+                                    <div className="bee-icon-label bee-icon-label-right"> Dec, 22th 2024 | 6:30 p.m. EST </div>
                                 </div>
                             </div>
                         </div>
