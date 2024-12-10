@@ -16,11 +16,22 @@ const Certificate = ({seminar,timeStart}) => {
     const targetDate = new Date(timeStart) // Target date in ISO format
 
     useEffect(() => {
+        const formatDate = (date) => {
+            const options = {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            };
+            return date.toLocaleString('en-GB', options).replace(',', '');
+        };
+
         if(now >= targetDate){
             setinfo("")
             setshowCountDown(false)
         }else{
-            setinfo(<><p style={{fontFamily:"Poppins"}}>Sertifikat akan dapat di akses pada tanggal<br/>22 Desember 2024 20:00 WIB</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
+            setinfo(<><p style={{fontFamily:"Poppins"}}>Sertifikat akan dapat di akses pada tanggal<br/>{formatDate(targetDate).replace("at","")} WIB</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
             setshowCountDown(true)
         }
     }, []);

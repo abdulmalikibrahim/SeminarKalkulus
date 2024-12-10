@@ -46,6 +46,16 @@ const Content = ({urlZoom,setform,timeStart}) => {
     const [showCountDown,setshowCountDown] = useState(false)
 
     useEffect(() => {
+        const formatDate = (date) => {
+            const options = {
+                day: '2-digit',
+                month: 'long',
+                year: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit',
+            };
+            return date.toLocaleString('en-GB', options).replace(',', '');
+        };
         if(now >= targetDate){
             setinfo("")
             setform(true)
@@ -53,7 +63,7 @@ const Content = ({urlZoom,setform,timeStart}) => {
         }else{
             setshowCountDown(true)
             setform(false)
-            setinfo(<><p style={{fontFamily:"Poppins"}}>Link zoom akan dapat di akses pada tanggal<br/>22 Desember 2024 18:30 WIB</p><p className='mt-3'>Mohon jangan gunakan link zoom yang di share oleh siapapun karena akan mempengaruhi absen anda untuk cetak sertifikat.</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
+            setinfo(<><p style={{fontFamily:"Poppins"}}>Link zoom akan dapat di akses pada tanggal<br/>{formatDate(targetDate).replace("at","")} WIB</p><p className='mt-3'>Mohon jangan gunakan link zoom yang di share oleh siapapun karena akan mempengaruhi absen anda untuk cetak sertifikat.</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
         }
     }, []);
 
