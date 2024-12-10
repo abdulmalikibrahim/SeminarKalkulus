@@ -16,7 +16,7 @@ const Footer = () => {
                                     </a>
                                 </div>
                                 <div className="bee-icon-label bee-icon-label-right">
-                                    <a href="https://www.linkedin.com/in/abdul-ibrahim-807748242?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="Designed with Beefree"> T1.24.B1 (Abdul Malik Ibrahim) </a>
+                                    <a href="https://www.linkedin.com/in/abdul-ibrahim-807748242?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" title="Designed with Beefree"> Created By : Abdul Malik Ibrahim (T1.24.B1) </a>
                                 </div>
                             </div>
                         </div>
