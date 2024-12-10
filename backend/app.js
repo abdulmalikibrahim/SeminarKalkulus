@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require('express')
 const mysql = require('mysql')
 const cors = require('cors')
@@ -11,9 +12,9 @@ app.use(express.json())
 // Koneksi ke Database MySQL
 const db = mysql.createConnection({
     host: 'localhost',
-    user: 'root', // Ganti dengan username MySQL Anda
-    password: '', // Ganti dengan password MySQL Anda
-    database: 'seminar', // Ganti dengan nama database Anda
+    user: process.env.DB_USER, // Ganti dengan username MySQL Anda
+    password: process.env.DB_PASSWORD, // Ganti dengan password MySQL Anda
+    database: process.env.DB_NAME, // Ganti dengan nama database Anda
 });
 
 db.connect((err) => {
@@ -41,21 +42,38 @@ app.post('/api/addParticipant',[
         return res.status(400).json({errors : errors.array()});
     }
 
-    const { universitas, otherUniversity, nim, kelas, namaLengkap, nomorHP, email } = req.body;
+    const { universitas, otherUniversity, nim, kelas, namaLengkap, nomorHP, email, seminar } = req.body;
+    if(!seminar){
+        return res.status(400).json({errors:"Seminar tidak valid"})
+    }
+
+    let table = ""
+    switch (seminar) {
+        case "Kalkulus":
+            table = "peserta_kalkulus"
+            break;
+        case "Pancasila":
+            table = "peserta_pancasila"
+            break;
+        case "B. Pemrograman":
+            table = "peserta_pemrograman"
+            break;
+        default:
+            break;
+    }
 
     //CHECK EMAIL
-    const queryValidation = "SELECT email FROM peserta WHERE email = ?"
-    db.query(queryValidation,email,(error,result) => {
+    const queryValidation = "SELECT email FROM ?? WHERE email = ?"
+    db.query(queryValidation,[table,email],(error,result) => {
         if(error){
             return res.status(500).json({errors : "Database error"})
         }
 
-        console.log(result)
         if(result.length > 0){
             return res.status(400).json({errors : [{"path" : "email", "msg" : "Email anda sudah terdaftar"}]})
         }else{
-            const query = "INSERT INTO peserta (universitas,otheruniversity,nim,kelas,namalengkap,nomorhp,email) VALUES (?,?,?,?,?,?,?)";
-            db.query(query,[universitas,otherUniversity,nim,kelas,namaLengkap,nomorHP,email],(error,result) => {
+            const query = "INSERT INTO ?? (universitas,otheruniversity,nim,kelas,namalengkap,nomorhp,email) VALUES (?,?,?,?,?,?,?)";
+            db.query(query,[table,universitas,otherUniversity,nim,kelas,namaLengkap,nomorHP,email],(error,result) => {
                 if(error){
                     return res.status(500).json({errors : "Database error"})
                 }
@@ -67,9 +85,29 @@ app.post('/api/addParticipant',[
     
 })
 
-app.get('/api/getParticipant',(req,res) => {
-    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM peserta ORDER BY namalengkap ASC"
-    db.query(query,(error,result) => {
+app.post('/api/getParticipant',(req,res) => {
+    const {seminar} = req.body
+    if(!seminar){
+        return res.status(400).json({errors:"Seminar tidak valid"})
+    }
+
+    let table = ""
+    switch (seminar) {
+        case "Kalkulus":
+            table = "peserta_kalkulus"
+            break;
+        case "Pancasila":
+            table = "peserta_pancasila"
+            break;
+        case "B. Pemrograman":
+            table = "peserta_pemrograman"
+            break;
+        default:
+            break;
+    }
+    console.log(seminar)
+    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM ?? ORDER BY namalengkap ASC"
+    db.query(query,table,(error,result) => {
         if(error){
             return res.status(500).json({errors : "Database error"})
         }
@@ -80,21 +118,40 @@ app.get('/api/getParticipant',(req,res) => {
 
 
 app.post('/api/certificateParticipant',(req,res) => {
-    const { email } = req.body
+    const { email, seminar } = req.body
 
     if(!email){
         return res.status(400).json({errors : "Isi data email anda terlebih dahulu"})
     }
+
+    if(!seminar){
+        return res.status(400).json({errors:"Seminar tidak valid"})
+    }
+
+    let table = ""
+    switch (seminar) {
+        case "Kalkulus":
+            table = "peserta_kalkulus"
+            break;
+        case "Pancasila":
+            table = "peserta_pancasila"
+            break;
+        case "B. Pemrograman":
+            table = "peserta_pemrograman"
+            break;
+        default:
+            break;
+    }
     
-    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM peserta WHERE email = ? AND status_kehadiran = ? ORDER BY namalengkap ASC"
-    db.query(query,[email,"Hadir"],(error,result) => {
+    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM ?? WHERE email = ? AND status_kehadiran = ? ORDER BY namalengkap ASC"
+    db.query(query,[table,email,"Hadir"],(error,result) => {
         if(error){
             return res.status(500).json({errors : "Database error"})
         }
 
         if(result.length > 0){
-            const query = "UPDATE peserta SET status_cetak_sertifikat = ? WHERE email = ?"
-            db.query(query,["Sudah",email],(error,result) => {
+            const query = "UPDATE ?? SET status_cetak_sertifikat = ? WHERE email = ?"
+            db.query(query,[table,"Sudah",email],(error,result) => {
                 if(error){
                     return res.status(500).json({errors : "Database error update certificate"})
                 }
@@ -109,20 +166,39 @@ app.post('/api/certificateParticipant',(req,res) => {
 })
 
 app.post('/api/attendanceParticipant',(req,res) => {
-    const { email } = req.body
+    const { email,seminar } = req.body
 
     if(!email){
         return res.status(400).json({errors : "Isi data email anda terlebih dahulu"})
     }
+
+    if(!seminar){
+        return res.status(400).json({errors:"Seminar tidak valid"})
+    }
+
+    let table = ""
+    switch (seminar) {
+        case "Kalkulus":
+            table = "peserta_kalkulus"
+            break;
+        case "Pancasila":
+            table = "peserta_pancasila"
+            break;
+        case "B. Pemrograman":
+            table = "peserta_pemrograman"
+            break;
+        default:
+            break;
+    }
     
-    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM peserta WHERE email = ? ORDER BY namalengkap ASC"
-    db.query(query,email,(error,result) => {
+    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM ?? WHERE email = ? ORDER BY namalengkap ASC"
+    db.query(query,[table,email],(error,result) => {
         if(error){
             return res.status(500).json({errors : "Database error"})
         }
 
-        const query = "UPDATE peserta SET status_kehadiran = ? WHERE email = ?"
-        db.query(query,["Hadir",email],(error,result) => {
+        const query = "UPDATE ?? SET status_kehadiran = ? WHERE email = ?"
+        db.query(query,[table,"Hadir",email],(error,result) => {
             if(error){
                 return res.status(500).json({errors : "Database error update attendance"})
             }

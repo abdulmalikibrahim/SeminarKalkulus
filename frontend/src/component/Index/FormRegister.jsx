@@ -5,7 +5,7 @@ import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 import { useNavigate } from 'react-router-dom';
 
-const FormRegister = () => {
+const FormRegister = ({...props}) => {
     const [confetti, setConfetti] = useState(false)
 
     return (
@@ -14,8 +14,8 @@ const FormRegister = () => {
             {confetti && <Confetti confetti={true}/>}
         </div>
         <Main>
-            <Header />
-            <Form setConfetti={setConfetti} />
+            <Header tanggalSeminar={props.tanggalSeminar}/>
+            <Form setConfetti={setConfetti} seminar={props.seminar} />
         </Main>
         </>
     )
@@ -38,7 +38,7 @@ const Main = ({children}) => {
     )
 }
 
-const Header = () => {
+const Header = ({tanggalSeminar}) => {
     return (
         <>
         <div className="bee-block bee-block-1 bee-spacer">
@@ -62,7 +62,7 @@ const Header = () => {
             </h2>
         </div>
         <div className="bee-block bee-block-3 bee-paragraph">
-            <p> Dec, 22 <sup>th</sup> 2024 | 6:30 p.m. EST </p>
+            <p> {tanggalSeminar} </p>
         </div>
         <div className="bee-block bee-block-4 bee-spacer">
             <div className="spacer" style={{ height: 15 }} />
@@ -74,7 +74,7 @@ const Header = () => {
     )
 }
 
-const Form = ({setConfetti}) => {
+const Form = ({setConfetti,seminar}) => {
     const MySwal = withReactContent(Swal)
     const navigate = useNavigate();
     const [otherUniversity, setotherUniversity] = useState("")
@@ -112,7 +112,7 @@ const Form = ({setConfetti}) => {
         }
     }
 
-    const API_URL = `${window.location.protocol}//${window.location.hostname}:5000/api`
+    const API_URL = process.env.REACT_APP_API_URL
     const handleRegister = async () => {
         setLabelRegister(<><i className='fas fa-spinner fa-spin'></i>&nbsp;&nbsp;Registering...</>)
         try {
@@ -123,7 +123,8 @@ const Form = ({setConfetti}) => {
                 kelas:kelas,
                 namaLengkap:namaLengkap,
                 nomorHP:nomorHP,
-                email:email
+                email:email,
+                seminar:seminar,
             }
             const insertData = await fetch(`${API_URL}/addParticipant`,{
                 method:"POST",
@@ -167,7 +168,6 @@ const Form = ({setConfetti}) => {
                         html:result.errors,
                         icon:"error"
                     })
-                    console.log(errors)
                 }
                 
                 const jsonErrors = errors.reduce((acc, error) => {

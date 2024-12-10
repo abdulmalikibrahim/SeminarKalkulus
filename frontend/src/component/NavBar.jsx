@@ -1,8 +1,10 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { Collapse } from "bootstrap";
 
-const Navbar = ({ pathName }) => {
+const Navbar = ({baseSeminar}) => {
+    const [pathName, setpathName] = useState(window.location.pathname);
+    const seminar = pathName.split("/")[1] !== "" ? pathName.split("/")[1] : "Kalkulus"
     const navbarRef = useRef(null);
     const collapseRef = useRef(null);
 
@@ -57,8 +59,8 @@ const Navbar = ({ pathName }) => {
                     width="10%"
                     className="d-block d-lg-none"
                 />
-                <a className="navbar-brand m-0" style={{ fontFamily: "poppins" }}>
-                    SEMINAR KALKULUS
+                <a className="navbar-brand m-0" style={{ fontFamily: "poppins", textTransform:"uppercase" }}>
+                    SEMINAR {seminar}
                 </a>
 
                 <button
@@ -74,58 +76,59 @@ const Navbar = ({ pathName }) => {
                     <ul className="navbar-nav ms-auto">
                         <li className="nav-item ms-lg-3">
                             <Link
-                                to="/"
-                                className={pathName === "/" ? "nav-link active" : "nav-link"}
-                                aria-current="page"
+                                to={"/"+baseSeminar}
+                                className={pathName === "/"+baseSeminar ? "nav-link active" : "nav-link"}
+                                aria-current="page" onClick={() => setpathName("/"+baseSeminar)}
                             >
                                 <i className="me-lg-1 me-2 fas fa-home"></i> Home
                             </Link>
                         </li>
                         <li className="nav-item ms-lg-3">
                             <Link
-                                to="/rundown"
-                                className={pathName === "/rundown" ? "nav-link active" : "nav-link"}
-                                aria-label="Rundown"
+                                to={"/"+baseSeminar+"/rundown"}
+                                className={pathName === "/"+baseSeminar+"/rundown" ? "nav-link active" : "nav-link"}
+                                aria-label="Rundown" onClick={() => setpathName("/"+baseSeminar+"/rundown")}
                             >
                                 <i className="me-lg-1 me-2 fas fa-calendar-alt"></i> Rundown
                             </Link>
                         </li>
                         <li className="nav-item ms-lg-3">
                             <Link
-                                to="/certificate"
-                                className={pathName === "/certificate" ? "nav-link active" : "nav-link"}
-                                aria-label="Sertifikat"
+                                to={"/"+baseSeminar+"/certificate"}
+                                className={pathName === "/"+baseSeminar+"/certificate" ? "nav-link active" : "nav-link"}
+                                aria-label="Sertifikat" onClick={() => setpathName("/"+baseSeminar+"/certificate")}
                             >
                                 <i className="me-lg-1 me-2 fas fa-certificate"></i> Sertifikat
                             </Link>
                         </li>
                         <li className="nav-item ms-lg-3">
                             <Link
-                                to="/audience"
-                                className={pathName === "/audience" ? "nav-link active" : "nav-link"}
-                                aria-label="Link Zoom"
+                                to={"/"+baseSeminar+"/audience"}
+                                className={pathName === "/"+baseSeminar+"/audience" ? "nav-link active" : "nav-link"}
+                                aria-label="Audience" onClick={() => setpathName("/"+baseSeminar+"/audience")}
                             >
                                 <i className="me-lg-1 me-2 fas fa-users"></i> Daftar Peserta
                             </Link>
                         </li>
                         <li className="nav-item ms-lg-3">
                             <Link
-                                to="/peraturanSeminar"
+                                to={"/"+baseSeminar+"/peraturanSeminar"}
                                 className={
-                                    pathName === "/peraturanSeminar"
+                                    pathName === "/"+baseSeminar+"/peraturanSeminar"
                                         ? "nav-link active"
                                         : "nav-link"
                                 }
                                 aria-label="Syarat dan Ketentuan"
+                                onClick={() => setpathName("/"+baseSeminar+"/peraturanSeminar")}
                             >
                                 <i className="me-lg-1 me-2 fas fa-file-contract"></i> Peraturan
                             </Link>
                         </li>
                         <li className="nav-item ms-lg-3">
                             <Link
-                                to="/linkzoom"
-                                className={pathName === "/linkzoom" ? "nav-link active" : "nav-link"}
-                                aria-label="Link Zoom"
+                                to={"/"+baseSeminar+"/linkzoom"}
+                                className={pathName === "/"+baseSeminar+"/linkzoom" ? "nav-link active" : "nav-link"}
+                                aria-label="Link Zoom" onClick={() => setpathName("/"+baseSeminar+"/linkzoom")}
                             >
                                 <i className="me-lg-1 me-2 fas fa-video"></i> Link Zoom
                             </Link>

@@ -4,7 +4,7 @@ import { toPng } from 'html-to-image';
 import Swal from 'sweetalert2'
 import CountDown from '../component/CountDown';
 
-const Certificate = () => {
+const Certificate = ({seminar,timeStart}) => {
     const [search, setSearch] = useState(false)
     const [showCountDown, setshowCountDown] = useState(false)
     const [namaPeserta, setnamaPeserta] = useState("");
@@ -13,7 +13,7 @@ const Certificate = () => {
     const [showCertificate, setshowCertificate] = useState(false)
     const [info,setinfo] = useState("")
     const now = new Date() // Target date in ISO format
-    const targetDate = new Date("2024-12-22T20:00:00") // Target date in ISO format
+    const targetDate = new Date(timeStart) // Target date in ISO format
 
     useEffect(() => {
         if(now >= targetDate){
@@ -30,7 +30,7 @@ const Certificate = () => {
             <Header title={title}/>
             { 
                 showCountDown === false ? 
-                <FormSearchEmail setSearch={setSearch} setnamaPeserta={setnamaPeserta} settitle={settitle} setloadingCert={setloadingCert} setshowCertificate={setshowCertificate} /> 
+                <FormSearchEmail setSearch={setSearch} setnamaPeserta={setnamaPeserta} settitle={settitle} setloadingCert={setloadingCert} setshowCertificate={setshowCertificate} seminar={seminar} /> 
                 :
                 <>
                 <CountDown targetDate={targetDate} />
@@ -84,7 +84,7 @@ const Header = ({title}) => {
     )
 }
 
-const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setshowCertificate}) => {
+const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setshowCertificate,seminar}) => {
     const session = localStorage.getItem("seminarKalkulus")
     let emailSave = ""
     if(session){
@@ -104,6 +104,7 @@ const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setsh
                 headers:{"Content-Type" : "application/json"},
                 body:JSON.stringify({
                     email:email,
+                    seminar:seminar
                 })
             })
             const data = await result.json();

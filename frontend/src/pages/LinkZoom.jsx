@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
 import CountDown from '../component/CountDown';
 
-const LinkZoom = () => {
+const LinkZoom = ({seminar,timeStart}) => {
     const [urlZoom,seturlZoom] = useState(false)
     const [form,setform] = useState(false)
     return(
         <Main>
             <Header />
-            { form && <FormLink seturlZoom={seturlZoom} /> }
-            <Content urlZoom={urlZoom} seturlZoom={seturlZoom} setform={setform} />
+            { form && <FormLink seturlZoom={seturlZoom} seminar={seminar} /> }
+            <Content urlZoom={urlZoom} seturlZoom={seturlZoom} setform={setform} timeStart={timeStart} />
         </Main>
     )
 }
@@ -39,10 +39,10 @@ const Header = () => {
     )
 }
 
-const Content = ({urlZoom,setform}) => {
+const Content = ({urlZoom,setform,timeStart}) => {
     const [info,setinfo] = useState("")
     const now = new Date(); // Current date and time
-    const targetDate = new Date("2024-12-22T18:30:00"); // Target date in ISO format
+    const targetDate = new Date(timeStart); // Target date in ISO format
     const [showCountDown,setshowCountDown] = useState(false)
 
     useEffect(() => {
@@ -53,7 +53,7 @@ const Content = ({urlZoom,setform}) => {
         }else{
             setshowCountDown(true)
             setform(false)
-            setinfo(<><p style={{fontFamily:"Poppins"}}>Link zoom akan dapat di akses pada tanggal<br/>22 Desember 2024 18:30 WIB</p><p>Mohon jangan gunakan link zoom yang di share oleh siapapun karena akan mempengaruhi absen anda untuk cetak sertifikat.</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
+            setinfo(<><p style={{fontFamily:"Poppins"}}>Link zoom akan dapat di akses pada tanggal<br/>22 Desember 2024 18:30 WIB</p><p className='mt-3'>Mohon jangan gunakan link zoom yang di share oleh siapapun karena akan mempengaruhi absen anda untuk cetak sertifikat.</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
         }
     }, []);
 
@@ -78,7 +78,7 @@ const Content = ({urlZoom,setform}) => {
     )
 }
 
-const FormLink = ({seturlZoom}) => {
+const FormLink = ({seturlZoom,seminar}) => {
     let session = localStorage.getItem("seminarKalkulus")
     let emailSave = ""
     if(session){
@@ -98,6 +98,7 @@ const FormLink = ({seturlZoom}) => {
                 headers:{"Content-Type" : "application/json"},
                 body:JSON.stringify({
                     email:email,
+                    seminar:seminar
                 })
             })
             const data = await result.json();

@@ -27,7 +27,7 @@ const CountDown = ({targetDate}) => {
     return(
         <div className="card border-0" style={{background:"rgba(0,0,0,0)"}}>
             <div className="card-body">
-                <img src="https://img.clipart-library.com/2/clip-clock-gif/clip-clock-gif-11.gif" alt="Waiting Time Seminar Kalkulus" width={"60%"} />
+                <img src="https://img.clipart-library.com/2/clip-clock-gif/clip-clock-gif-11.gif" alt="Waiting Time Seminar Kalkulus" width={"50%"} />
                 <h4 className='fw-bold mt-3' style={{fontFamily:"Poppins"}}>{countdown}</h4>
             </div>
         </div>

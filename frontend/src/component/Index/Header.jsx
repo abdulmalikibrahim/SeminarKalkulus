@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Header = () => {
+const Header = ({...props}) => {
     return (
         <>
             <div className="bee-row bee-row-2">
@@ -37,15 +37,15 @@ const Header = () => {
                     textAlign: "left",
                     marginTop: 0,
                     marginBottom: 0
-                    }}> Webinar Kalkulus{" "} </h1>
+                    }}> Webinar {props.seminar} </h1>
                         </div>
                         <div className="bee-block bee-block-5 bee-paragraph">
-                            <p> Penggunaan Dasar Matematika <br /> dalam pembuatan struktur pembangunan </p>
+                            <p> {props.tagLine} </p>
                         </div>
                         <div className="bee-block bee-block-6 bee-icons">
                             <div className="bee-icon bee-icon-last">
                                 <div className="bee-content">
-                                    <div className="bee-icon-label bee-icon-label-right"> Dec, 22th 2024 | 6:30 p.m. EST </div>
+                                    <div className="bee-icon-label bee-icon-label-right"> {props.tanggalSeminar} </div>
                                 </div>
                             </div>
                         </div>
@@ -83,7 +83,7 @@ const Header = () => {
                     </div>
                     <div className="bee-col bee-col-2 bee-col-w6">
                         <div className="bee-block bee-block-1 bee-image" style={{position:"relative"}}>
-                            <img alt="Portrait of a young man with glasses" className="bee-right bee-fixedwidth" src="images/web-hero-photo.png" style={{ maxWidth: 350 }} />
+                            <img alt="Portrait of a young man with glasses" className="bee-right bee-fixedwidth" src={props.imageNarsum} style={{ maxWidth: 350 }} />
                         </div>
                     </div>
                 </div>
@@ -108,7 +108,7 @@ const Header = () => {
                     marginTop: 0,
                     marginBottom: 0
                     }}>
-                                <span className="tinyMce-placeholder"> Implementasi Kalkulus, <br /> Dalam kehidupan sehari-hari.{" "} </span>{" "}
+                                <span className="tinyMce-placeholder">{props.title}</span>
                             </h3>
                         </div>
                         <div className="bee-block bee-block-3 bee-spacer">

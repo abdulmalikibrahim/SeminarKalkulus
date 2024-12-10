@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
-const Audience = () => {
+const Audience = ({seminar}) => {
     return(
         <Main>
-            <ListParticipant/>
+            <ListParticipant seminar={seminar}/>
         </Main>
     )
 }
@@ -28,16 +28,20 @@ const Main = ({children}) => {
     )
 }
 
-const ListParticipant = () => {
+const ListParticipant = ({seminar}) => {
     const API_URL = process.env.REACT_APP_API_URL
     const [dataParticipant, setdataParticipant] = useState("")
     useEffect(() => {
         const getData = async () => {
             try {
-                const data = await fetch(`${API_URL}/getParticipant`)
+                const data = await fetch(`${API_URL}/getParticipant`,{
+                    method:"POST",
+                    headers:{"Content-Type" : "application/json"},
+                    body:JSON.stringify({
+                        seminar:seminar
+                    })
+                })
                 const result = await data.json()
-
-                console.log(data)
                 if(data.ok){
                     setdataParticipant(result.data)
                 }else{
