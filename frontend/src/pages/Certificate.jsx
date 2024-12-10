@@ -2,22 +2,40 @@ import React, { useEffect, useRef, useState } from 'react';
 import "../assets/style.css"
 import { toPng } from 'html-to-image';
 import Swal from 'sweetalert2'
+import CountDown from '../component/CountDown';
 
 const Certificate = () => {
     const [search, setSearch] = useState(false)
-    const [showCountdown, setshowCountdown] = useState(true)
+    const [showCountDown, setshowCountDown] = useState(false)
     const [namaPeserta, setnamaPeserta] = useState("");
     const [title, settitle] = useState("Download Sertifikat")
     const [loadingCert, setloadingCert] = useState(false)
     const [showCertificate, setshowCertificate] = useState(false)
+    const [info,setinfo] = useState("")
+    const now = new Date() // Target date in ISO format
+    const targetDate = new Date("2024-12-22T20:00:00") // Target date in ISO format
+
+    useEffect(() => {
+        if(now >= targetDate){
+            setinfo("")
+            setshowCountDown(false)
+        }else{
+            setinfo(<><p style={{fontFamily:"Poppins"}}>Sertifikat akan dapat di akses pada tanggal<br/>22 Desember 2024 20:00 WIB</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
+            setshowCountDown(true)
+        }
+    }, []);
+
     return(
         <Main search={search} namaPeserta={namaPeserta} loadingCert={loadingCert} showCertificate={showCertificate}>
             <Header title={title}/>
             { 
-                showCountdown === false ? <FormSearchEmail setSearch={setSearch} setnamaPeserta={setnamaPeserta} settitle={settitle} setloadingCert={setloadingCert} setshowCertificate={setshowCertificate} /> : ""
-            }
-            {
-                showCountdown && <CountDown setshowCountdown={setshowCountdown} />
+                showCountDown === false ? 
+                <FormSearchEmail setSearch={setSearch} setnamaPeserta={setnamaPeserta} settitle={settitle} setloadingCert={setloadingCert} setshowCertificate={setshowCertificate} /> 
+                :
+                <>
+                <CountDown targetDate={targetDate} />
+                <h4>{info}</h4>
+                </>
             }
         </Main>
     )
@@ -66,46 +84,6 @@ const Header = ({title}) => {
     )
 }
 
-const CountDown = ({setshowCountdown}) => {
-    const [countdown,setcountdown] = useState("")
-    const [info,setinfo] = useState("")
-    const targetDate = new Date("2024-12-22T20:00:00") // Target date in ISO format
-
-    useEffect(() => {
-        const updateCountdown = () => {
-            const now = new Date(); // Current date and time
-            const difference = targetDate - now;
-
-            if (difference > 0) {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((difference / (1000 * 60)) % 60);
-                const seconds = Math.floor((difference / 1000) % 60);
-                
-                setshowCountdown(true)
-                setcountdown(<p>{days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds</p>)
-                setinfo(<><p>Sertifikat akan dapat di akses pada tanggal 22 Desember 2024 20:00 WIB</p><p>Terimakasih</p></>)
-            } else {
-                setinfo("")
-                setshowCountdown(false)
-                setcountdown("")
-                clearInterval(timer)
-            }
-        };
-
-        const timer = setInterval(updateCountdown, 1000);
-
-        return () => clearInterval(timer);
-    }, []);
-
-    return(
-        <>
-            <h4>{countdown}</h4>
-            <h5>{info}</h5>
-        </>
-    )
-}
-
 const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setshowCertificate}) => {
     const session = localStorage.getItem("seminarKalkulus")
     let emailSave = ""
@@ -119,7 +97,7 @@ const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setsh
         try {
             setshowCertificate(false)
             setloadingCert(true)
-            settitle("Creating Certificate...");
+            settitle("Membuat Sertifikat...");
             const API_URL = process.env.REACT_APP_API_URL
             const result = await fetch(`${API_URL}/certificateParticipant`,{
                 method:"POST",
@@ -134,26 +112,28 @@ const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setsh
                     const namaLengkap = data.data[0].namalengkap ? data.data[0].namalengkap : "-";
                     setnamaPeserta(namaLengkap)
                     setTimeout(() => {
-                        settitle("Almost Done...")
+                        settitle("Hampir Selesai...")
                     }, 2000);
 
                     setTimeout(() => {
                         setshowCertificate(true)
                         setloadingCert(false)
                         setSearch(true)
-                        settitle("Your Certificate Finished");
+                        settitle("Sertifikat Berhasil Dibuat");
                     }, 4000);
                 }else{
+                    settitle("Download Sertifikat")
                     setloadingCert(false)
                     Swal.fire({
                         title:"Error",
-                        html:"Email anda tidak terdaftar",
+                        html:data.errors,
                         icon:"error",
                     })
                 }
             }else{
                 setloadingCert(false)
                 setSearch(false)
+                settitle("Download Sertifikat")
                 Swal.fire({
                     title:"Error",
                     html:data.errors,
@@ -178,19 +158,23 @@ const FormSearchEmail = ({setSearch,setnamaPeserta,settitle,setloadingCert,setsh
 
 const ImageCertificate = ({namaPeserta}) => {
     const certificateRef = useRef(null)
+    const defaultLabelDownload = <><i className="fas fa-download me-2"></i>Download</>
+    const [labelDownload,setlabelDownload] = useState(defaultLabelDownload)
 
     const handleDownload = () => {
         if (certificateRef.current) {
+            setlabelDownload(<><i className='fas fa-spinner fa-spin'></i><span className='ms-1'>Downloading...</span></>)
             toPng(certificateRef.current, { quality: 1.0 }) // Use toPng for PNG output
-                .then((dataUrl) => {
-                    const link = document.createElement('a');
-                    link.download = 'certificate.png'; // Save as PNG
-                    link.href = dataUrl;
-                    link.click();
-                })
-                .catch((err) => {
-                    console.error('Failed to generate image', err);
-                });
+            .then((dataUrl) => {
+                const link = document.createElement('a');
+                link.download = `Sertifikat Kalkulus ${namaPeserta}.png`; // Save as PNG
+                link.href = dataUrl;
+                link.click();
+                setlabelDownload(defaultLabelDownload)
+            })
+            .catch((err) => {
+                console.error('Failed to generate image', err);
+            });
         }
     };
     return(
@@ -203,7 +187,7 @@ const ImageCertificate = ({namaPeserta}) => {
             </div>
             <div className="col-12 text-center mt-4">
                 <button className="btn btn-info" onClick={handleDownload}>
-                    <i className="fas fa-download me-2"></i>Download
+                    {labelDownload}
                 </button>
             </div>
         </div>

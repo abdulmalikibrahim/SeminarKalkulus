@@ -86,20 +86,25 @@ app.post('/api/certificateParticipant',(req,res) => {
         return res.status(400).json({errors : "Isi data email anda terlebih dahulu"})
     }
     
-    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM peserta WHERE email = ? ORDER BY namalengkap ASC"
-    db.query(query,email,(error,result) => {
+    const query = "SELECT IF(otheruniversity != '', otheruniversity, universitas) as universitas, namalengkap,kelas,status_kehadiran,status_cetak_sertifikat FROM peserta WHERE email = ? AND status_kehadiran = ? ORDER BY namalengkap ASC"
+    db.query(query,[email,"Hadir"],(error,result) => {
         if(error){
             return res.status(500).json({errors : "Database error"})
         }
 
-        const query = "UPDATE peserta SET status_cetak_sertifikat = ? WHERE email = ?"
-        db.query(query,["Sudah",email],(error,result) => {
-            if(error){
-                return res.status(500).json({errors : "Database error update certificate"})
-            }
-        })
+        if(result.length > 0){
+            const query = "UPDATE peserta SET status_cetak_sertifikat = ? WHERE email = ?"
+            db.query(query,["Sudah",email],(error,result) => {
+                if(error){
+                    return res.status(500).json({errors : "Database error update certificate"})
+                }
+            })
+    
+            return res.status(200).json({data:result})
+        }else{
+            return res.status(404).json({errors:"Maaf anda sepertinya tidak mengikuti seminar, mungkin karena menggunakan link dari orang lain. Silahkan hubungi admin kami di 087708763253 untuk membuka akses sertifikat."})
+        }
 
-        return res.status(200).json({data:result})
     })
 })
 

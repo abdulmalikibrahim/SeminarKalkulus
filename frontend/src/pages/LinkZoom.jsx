@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Swal from 'sweetalert2'
+import CountDown from '../component/CountDown';
 
 const LinkZoom = () => {
     const [urlZoom,seturlZoom] = useState(false)
@@ -16,7 +17,7 @@ const LinkZoom = () => {
 const Main = ({children}) => {
     return (
         <>
-        <div className="bee-page-container mt-5 bg-page-image" style={{paddingBottom:"8rem", height:"100vh"}}>
+        <div className="bee-page-container mt-5 bg-page-image" style={{paddingBottom:"8rem", minHeight:"100vh", height:"100%"}}>
             <div className="row d-flex justify-content-center">
                 <div className="col-lg-5 col-10 mt-5 text-center">
                     {children}
@@ -40,39 +41,25 @@ const Header = () => {
 
 const Content = ({urlZoom,setform}) => {
     const [info,setinfo] = useState("")
-    const [countdown,setcountdown] = useState("")
+    const now = new Date(); // Current date and time
     const targetDate = new Date("2024-12-22T18:30:00"); // Target date in ISO format
+    const [showCountDown,setshowCountDown] = useState(false)
 
     useEffect(() => {
-        const updateCountdown = () => {
-            const now = new Date(); // Current date and time
-            const difference = targetDate - now;
-
-            if (difference > 0) {
-                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-                const minutes = Math.floor((difference / (1000 * 60)) % 60);
-                const seconds = Math.floor((difference / 1000) % 60);
-                
-                setform(false)
-                setcountdown(<p>{days} Days, {hours} Hours, {minutes} Minutes, {seconds} Seconds</p>)
-                setinfo(<><p>Link zoom akan dapat di akses pada tanggal 22 Desember 2024 18:30 WIB</p><p>Mohon jangan gunakan link zoom yang di share oleh siapapun karena akan mempengaruhi absen anda untuk cetak sertifikat.</p><p>Terimakasih</p></>)
-            } else {
-                setinfo("")
-                setform(true)
-                setcountdown("")
-                clearInterval(timer)
-            }
-        };
-
-        const timer = setInterval(updateCountdown, 1000);
-
-        return () => clearInterval(timer);
+        if(now >= targetDate){
+            setinfo("")
+            setform(true)
+            setshowCountDown(false)
+        }else{
+            setshowCountDown(true)
+            setform(false)
+            setinfo(<><p style={{fontFamily:"Poppins"}}>Link zoom akan dapat di akses pada tanggal<br/>22 Desember 2024 18:30 WIB</p><p>Mohon jangan gunakan link zoom yang di share oleh siapapun karena akan mempengaruhi absen anda untuk cetak sertifikat.</p><p style={{fontFamily:"Poppins"}}>Terimakasih</p></>)
+        }
     }, []);
 
     return(
         <>
-            <h5>{countdown}</h5>
+            {showCountDown && <CountDown targetDate={targetDate} />}
             <div className="card border-0" style={{background:"rgba(0,0,0,0)"}}>
                 <div className="card-body p-2">
                     {
