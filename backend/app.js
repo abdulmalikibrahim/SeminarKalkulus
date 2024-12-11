@@ -12,6 +12,7 @@ app.use(express.json())
 // Koneksi ke Database MySQL
 const db = mysql.createConnection({
     host: process.env.DB_HOST,
+    port: process.env.DB_PORT, 
     user: process.env.DB_USER, // Ganti dengan username MySQL Anda
     password: process.env.DB_PASSWORD, // Ganti dengan password MySQL Anda
     database: process.env.DB_NAME, // Ganti dengan nama database Anda
