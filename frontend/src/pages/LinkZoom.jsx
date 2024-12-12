@@ -18,7 +18,7 @@ const Main = ({children}) => {
     return (
         <>
         <div className="bee-page-container mt-5 bg-page-image" style={{paddingBottom:"8rem", minHeight:"100vh", height:"100%"}}>
-            <div className="row d-flex justify-content-center">
+            <div className="row d-flex justify-content-center" style={{width:"100%"}}>
                 <div className="col-lg-5 col-10 mt-5 text-center">
                     {children}
                     <div className="bee-block bee-block-7 bee-spacer">

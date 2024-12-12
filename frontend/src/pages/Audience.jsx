@@ -56,38 +56,40 @@ const ListParticipant = ({seminar}) => {
     },[])
 
     return(
-        <table className="table table-hover table-borderless">
-            <thead className="thead-light">
-                <tr style={{fontSize:"9pt"}}>
-                    <th className='align-middle bg-orange text-light'>No</th>
-                    <th className='align-middle bg-orange text-light'>Universitas</th>
-                    <th className='align-middle bg-orange text-light'>Nama Lengkap</th>
-                    <th className='align-middle bg-orange text-light'>Kelas</th>
-                    <th className='align-middle bg-orange text-light'>Status Kehadiran</th>
-                    <th className='align-middle bg-orange text-light'>Cetak Sertifikat</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    dataParticipant ?
-                    dataParticipant.map((element,index) => {
-                        return(
-                            <tr key={index} style={{fontSize:"9pt"}}>
-                                <td className='align-middle bg-orange-soft'>{(index+1)}</td>
-                                <td className='align-middle bg-orange-soft'>{element["universitas"]}</td>
-                                <td className='align-middle bg-orange-soft'>{element["namalengkap"]}</td>
-                                <td className='align-middle bg-orange-soft'>{element["kelas"]}</td>
-                                <td className='align-middle bg-orange-soft'>{element["status_kehadiran"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah</span>}</td>
-                                <td className='align-middle bg-orange-soft'>{element["status_cetak_sertifikat"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah</span>}</td>
-                            </tr>
-                        )
-                    }) : 
+        <div style={{overflow:"auto"}}>
+            <table className="table table-hover table-borderless">
+                <thead className="thead-light">
                     <tr style={{fontSize:"9pt"}}>
-                        <td colSpan={5} className='text-center'>{dataParticipant.errors}</td>
+                        <th className='align-middle bg-orange text-light'>No</th>
+                        <th className='align-middle bg-orange text-light'>Universitas</th>
+                        <th className='align-middle bg-orange text-light'>Nama Lengkap</th>
+                        <th className='align-middle bg-orange text-light'>Kelas</th>
+                        <th className='align-middle bg-orange text-light'>Status Kehadiran</th>
+                        <th className='align-middle bg-orange text-light'>Cetak Sertifikat</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    {
+                        dataParticipant ?
+                        dataParticipant.map((element,index) => {
+                            return(
+                                <tr key={index} style={{fontSize:"9pt"}}>
+                                    <td className='align-middle bg-orange-soft'>{(index+1)}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["universitas"]}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["namalengkap"]}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["kelas"]}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["status_kehadiran"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah</span>}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["status_cetak_sertifikat"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah</span>}</td>
+                                </tr>
+                            )
+                        }) : 
+                        <tr style={{fontSize:"9pt"}}>
+                            <td colSpan={5} className='text-center'>{dataParticipant.errors}</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     )
 }
 

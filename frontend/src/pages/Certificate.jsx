@@ -56,7 +56,7 @@ const Main = ({namaPeserta,loadingCert,showCertificate,children}) => {
     return (
         <>
         <div className="bee-page-container mt-5 bg-page-image" style={{paddingBottom:"8rem", minHeight:"100vh", height:"100%"}}>
-            <div className="row d-flex justify-content-center">
+            <div className="row d-flex justify-content-center" style={{width:"100%"}}>
                 <div className="col-lg-5 col-10 mt-5 text-center">
                     {children}
                     <div className="bee-block bee-block-7 bee-spacer">
@@ -77,7 +77,7 @@ const Main = ({namaPeserta,loadingCert,showCertificate,children}) => {
 
 const LoadingCertificate = () => {
     return(
-        <div className='row d-flex justify-content-center'>
+        <div className='row d-flex justify-content-center' style={{width:"100%"}}>
             <div className="col-lg-7 col-11">
                 <div class="card-loading is-loading m-0 mt-3">
                     <div class="image"></div>
@@ -190,7 +190,7 @@ const ImageCertificate = ({namaPeserta}) => {
         }
     };
     return(
-        <div className='row d-flex justify-content-center'>
+        <div className='row d-flex justify-content-center' style={{width:"100%"}}>
             <div className="col-lg-7 col-11" style={{position:"relative"}} ref={certificateRef}>
                 <h2 className='name-participant'>{namaPeserta.toUpperCase()}</h2>
                 <img src="/images/TTDKETUA.png" className='signature-ketua' />
