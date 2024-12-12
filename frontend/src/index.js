@@ -10,11 +10,15 @@ import NavBar from './component/NavBar';
 import Footer from './component/Footer';
 import PeraturanSeminar from './pages/PeraturanSeminar';
 import '../src/assets/index.css'
+import LinkGroupWA from './component/LinkGroupWA';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const App = () => {
   return(
     <Router>
+      <div style={{position:"fixed", bottom:"10px", right:"10px", zIndex:"2000"}}>
+        <LinkGroupWA />
+      </div>
       <NavBar baseSeminar={"kalkulus"}/>
       <Routes>
         <Route path="/" 
