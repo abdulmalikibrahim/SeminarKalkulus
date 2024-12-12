@@ -39,7 +39,7 @@ const Index = () => {
                     </div>
                 </div>
             </div>
-            <div className='row d-flex justify-content-center' style={{width:"100%"}}>
+            <div className='row d-flex justify-content-center'>
                 <div className='col-lg-9'>
                     <table className='table table-sm table-borderless table-hover'>
                         <thead className='thead-light'>
