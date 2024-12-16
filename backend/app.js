@@ -67,7 +67,7 @@ app.post('/api/addParticipant',[
     const queryValidation = "SELECT email FROM ?? WHERE email = ?"
     db.query(queryValidation,[table,email],(error,result) => {
         if(error){
-            return res.status(500).json({errors : "Database error"})
+            return res.status(500).json({errors : "Database error"+error})
         }
 
         if(result.length > 0){
