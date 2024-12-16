@@ -76,7 +76,7 @@ app.post('/api/addParticipant',[
             const query = "INSERT INTO ?? (universitas,otheruniversity,nim,kelas,namalengkap,nomorhp,email) VALUES (?,?,?,?,?,?,?)";
             db.query(query,[table,universitas,otherUniversity,nim,kelas,namaLengkap,nomorHP,email],(error,result) => {
                 if(error){
-                    return res.status(500).json({errors : "Database error"})
+                    return res.status(500).json({errors : "Database error"+error})
                 }
         
                 return res.status(201).json({message : "Data berhasil disimpan"})
