@@ -78,8 +78,8 @@ const ListParticipant = ({seminar}) => {
                                     <td className='align-middle bg-orange-soft'>{element["universitas"]}</td>
                                     <td className='align-middle bg-orange-soft'>{element["namalengkap"]}</td>
                                     <td className='align-middle bg-orange-soft'>{element["kelas"]}</td>
-                                    <td className='align-middle bg-orange-soft'>{element["status_kehadiran"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah</span>}</td>
-                                    <td className='align-middle bg-orange-soft'>{element["status_cetak_sertifikat"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah</span>}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["status_kehadiran"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Hadir</span>}</td>
+                                    <td className='align-middle bg-orange-soft'>{element["status_cetak_sertifikat"] === "Belum" ? <span className="badge bg-danger">Belum</span> :  <span className="badge bg-success">Sudah Cetak</span>}</td>
                                 </tr>
                             )
                         }) : 
