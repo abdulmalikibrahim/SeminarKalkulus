@@ -45,13 +45,13 @@ const Peraturan = () => {
                 <li>Mohon untuk bisa <i className='fas fa-video'></i> ONCAM</li>
                 <li>Mohon menggunakan kata-kata yang sopan saat bertanya.</li>
                 <li>Mohon untuk menggunakan link zoom di halaman <Link style={{textDecoration:"none"}} to="/linkzoom">Link Zoom</Link>, ketika anda klik link zoom maka anda akan dihitung hadir dan bisa mencetak sertifikat mandiri.</li>
-                <li>Download Background Webinar <a onClick={downloadImage} href="javascript:void(0)" style={{textDecoration:"none"}}>di sini</a></li>
+                {/* <li>Download Background Webinar <a onClick={downloadImage} href="javascript:void(0)" style={{textDecoration:"none"}}>di sini</a></li> */}
             </ul>
-            <div className='row d-flex justify-content-center'>
+            {/* <div className='row d-flex justify-content-center'>
                 <div className="col-lg-8">
                     <img src="/images/Background Webinar.jpg" alt='Background Webinar Kalkulus' width="100%"/>
                 </div>
-            </div>
+            </div> */}
         </div>
     )
 }
