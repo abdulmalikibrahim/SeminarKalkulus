@@ -90,14 +90,14 @@ const Index = () => {
                                 <td className='bg-orange-soft'></td>
                                 <td className='bg-orange-soft'>5 Menit</td>
                                 <td className='bg-orange-soft text-start'>Sambutan Ketua Pelaksana</td>
-                                <td className='bg-orange-soft'>Zaxwan</td>
+                                <td className='bg-orange-soft'>Ketua Panitia</td>
                             </tr>
                             <tr style={{fontSize:"9pt"}} className='align-middle table-light text-center'>
                                 <td className='bg-orange-soft'>{nomor++}</td>
                                 <td className='bg-orange-soft'></td>
                                 <td className='bg-orange-soft'>10 Menit</td>
                                 <td className='bg-orange-soft text-start'>Sambutan Dosen Kalkulus</td>
-                                <td className='bg-orange-soft'>Pak Darmanto</td>
+                                <td className='bg-orange-soft'>Dosen Pengampu</td>
                             </tr>
                             <tr style={{fontSize:"9pt"}} className='align-middle table-light text-center'>
                                 <td className='bg-orange-soft'>{nomor++}</td>
