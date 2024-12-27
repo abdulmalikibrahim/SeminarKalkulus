@@ -16,7 +16,7 @@ const Index = ({...props}) => {
                     imageNarsum={props.imageNarsum}
                 />
                 <Content/>
-                <Panitia/>
+                <Panitia props={props}/>
                 <FormRegister tanggalSeminar={props.tanggalSeminar} seminar={props.seminar} />
             </div>
         </>

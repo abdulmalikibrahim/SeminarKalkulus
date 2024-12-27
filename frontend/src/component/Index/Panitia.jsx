@@ -1,6 +1,9 @@
 import React from 'react';
 
-const Panitia = () => {
+const Panitia = ({...props}) => {
+    const imageMC = `url('/${props.props.imageMC}')`;
+    const imageModerator = `url('/${props.props.imageModerator}')`;
+    const imageNarsum2 = `url('/${props.props.imageNarsum2}')`;
     return (
         <>
         <div className="bee-row bee-row-9">
@@ -53,7 +56,7 @@ const Panitia = () => {
             <div className="bee-row-content reverse">
                 <div className="bee-col bee-col-1 bee-col-w4">
                     <div className="bee-block bee-block-1 bee-image">
-                        <div className="bee-center bee-autowidth" style={{backgroundImage:"url('/images/speaker-xeng.png')", width: 180, height: 180, backgroundSize:"cover", borderRadius:"50%"}}></div>
+                        <div className="bee-center bee-autowidth" style={{backgroundImage:`${imageMC}`, width: 180, height: 180, backgroundSize:"cover", borderRadius:"50%"}}></div>
                     </div>
                     <div className="bee-block bee-block-2 bee-heading">
                         <h3 style={{
@@ -69,7 +72,7 @@ const Panitia = () => {
                             marginTop: 0,
                             marginBottom: 0
                             }}>
-                            <span className="tinyMce-placeholder">FETI FAJRIYANTI</span>{" "}
+                            <span className="tinyMce-placeholder">{props.props.nameMC}</span>{" "}
                         </h3>
                     </div>
                     <div className="bee-block bee-block-3 bee-paragraph">
@@ -80,7 +83,7 @@ const Panitia = () => {
                 </div>
                 <div className="bee-col bee-col-2 bee-col-w4">
                     <div className="bee-block bee-block-1 bee-image">
-                        <div className="bee-center bee-autowidth" style={{backgroundImage:"url('/images/speaker-may.png')", width: 180, height: 180, backgroundSize:"cover", borderRadius:"50%"}}></div>
+                        <div className="bee-center bee-autowidth" style={{backgroundImage:`${imageNarsum2}`, width: 180, height: 180, backgroundSize:"cover", borderRadius:"50%"}}></div>
                     </div>
                     <div className="bee-block bee-block-2 bee-heading">
                         <h3 style={{
@@ -96,7 +99,7 @@ const Panitia = () => {
                             marginTop: 0,
                             marginBottom: 0
                             }}>
-                            <span className="tinyMce-placeholder">Mohamad Irlin Sunggawa, S.Pd., M. Si.</span>{" "}
+                            <span className="tinyMce-placeholder">{props.props.nameNarsum}</span>{" "}
                         </h3>
                     </div>
                     <div className="bee-block bee-block-3 bee-paragraph">
@@ -107,7 +110,7 @@ const Panitia = () => {
                 </div>
                 <div className="bee-col bee-col-3 bee-col-w4">
                     <div className="bee-block bee-block-1 bee-image">
-                        <div className="bee-center bee-autowidth" style={{backgroundImage:"url('/images/speaker-white.png')", width: 180, height: 180, backgroundSize:"cover", borderRadius:"50%"}}></div>
+                        <div className="bee-center bee-autowidth" style={{backgroundImage:`${imageModerator}`, width: 180, height: 180, backgroundSize:"cover", borderRadius:"50%"}}></div>
                     </div>
                     <div className="bee-block bee-block-2 bee-heading">
                         <h3 style={{
@@ -123,7 +126,7 @@ const Panitia = () => {
                             marginTop: 0,
                             marginBottom: 0
                             }}>
-                            <span className="tinyMce-placeholder">MAWADAH</span>{" "}
+                            <span className="tinyMce-placeholder">{props.props.nameModerator}</span>{" "}
                         </h3>
                     </div>
                     <div className="bee-block bee-block-3 bee-paragraph">

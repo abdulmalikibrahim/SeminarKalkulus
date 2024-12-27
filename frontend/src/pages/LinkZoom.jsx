@@ -76,7 +76,7 @@ const Content = ({urlZoom,setform,timeStart}) => {
                         urlZoom && 
                         <>
                             <h5 className='mt-3'>Silahkan klik tombol di bawah ini</h5>
-                            <a className='btn btn-info mt-2' href='https://us06web.zoom.us/j/84244670008?pwd=WxVsbXa7ANQ6xGpja4VC5jquV8V4EW.1' target='_blank'><i className="fas fa-video pe-2"></i>Open Zoom</a>
+                            <a className='btn btn-info mt-2' href='https://us06web.zoom.us/j/82635874391?pwd=TKb5m6hm1rDTZULKpXXbRIwS3ooUvb.1' target='_blank'><i className="fas fa-video pe-2"></i>Open Zoom</a>
                         </>
                     }
                 </div>
