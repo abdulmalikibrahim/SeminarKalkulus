@@ -55,7 +55,7 @@ const App = () => {
               seminar={"B. Pemrograman"}
               title={<>Fondasi Dasar Menjadi IT<br/>Berkualitas di Dunia Industri</>} 
               tagLine={<>Belajar mengenai fondasi dasar agar menjadi IT yang berkualitas</>}
-              tanggalSeminar={"Dec, 28th 2024 | 6:30 p.m. EST"}
+              tanggalSeminar={"Dec, 28th 2024 | 20:00 p.m. EST"}
               imageNarsum={"images/web-hero-photo-pemrogaram.png"}
               imageNarsum2={"images/speaker-may-pemrogaram.png"}
               imageMC={"images/speaker-xeng-pemrograman.png"}
@@ -75,7 +75,7 @@ const App = () => {
         
         <Route path="/pemrograman/rundown" element={<Rundown />} />
         <Route path="/pemrograman/certificate" element={<Certificate seminar={"B. Pemrograman"} timeStart={"2024-12-29T20:00:00"}/>} />
-        <Route path="/pemrograman/linkzoom" element={<LinkZoom seminar={"B. Pemrograman"} timeStart={"2024-12-28T18:30:00"}/>} />
+        <Route path="/pemrograman/linkzoom" element={<LinkZoom seminar={"B. Pemrograman"} timeStart={"2024-12-28T20:00:00"}/>} />
         <Route path="/pemrograman/audience" element={<Audience seminar={"B. Pemrograman"}/>} />
         <Route path="/pemrograman/peraturanSeminar" element={<PeraturanSeminar/>} />
       </Routes>
