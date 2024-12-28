@@ -74,8 +74,8 @@ const App = () => {
         <Route path="/kalkulus/peraturanSeminar" element={<PeraturanSeminar/>} />
         
         <Route path="/pemrograman/rundown" element={<Rundown />} />
-        <Route path="/pemrograman/certificate" element={<Certificate seminar={"B. Pemrograman"} timeStart={"2024-12-29T20:00:00"}/>} />
-        <Route path="/pemrograman/linkzoom" element={<LinkZoom seminar={"B. Pemrograman"} timeStart={"2024-12-28T20:00:00"}/>} />
+        <Route path="/pemrograman/certificate" element={<Certificate seminar={"B. Pemrograman"} timeStart={"2024-12-28T21:00:00"}/>} />
+        <Route path="/pemrograman/linkzoom" element={<LinkZoom seminar={"B. Pemrograman"} timeStart={"2024-12-28T19:50:00"}/>} />
         <Route path="/pemrograman/audience" element={<Audience seminar={"B. Pemrograman"}/>} />
         <Route path="/pemrograman/peraturanSeminar" element={<PeraturanSeminar/>} />
       </Routes>
