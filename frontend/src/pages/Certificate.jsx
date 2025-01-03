@@ -179,7 +179,7 @@ const ImageCertificate = ({namaPeserta}) => {
             toPng(certificateRef.current, { quality: 1.0 }) // Use toPng for PNG output
             .then((dataUrl) => {
                 const link = document.createElement('a');
-                link.download = `Sertifikat Kalkulus ${namaPeserta}.png`; // Save as PNG
+                link.download = `Sertifikat ${namaPeserta}.png`; // Save as PNG
                 link.href = dataUrl;
                 link.click();
                 setlabelDownload(defaultLabelDownload)
