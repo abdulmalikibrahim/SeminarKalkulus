@@ -56,6 +56,32 @@
     }
 }
 
+.nomor-sertifikat {
+    color: #FFFFFF;
+    position: absolute;
+    left: 50%; /* Move the text 50% from the left edge of the container */
+    transform: translateX(-50%); /* Offset the text by 50% of its width */
+    text-align: center; /* Center-align the text itself */
+    top: 26%; /* Optional: Vertically center the text */
+    font-size: 22px;
+    font-weight: bold;
+    width: 90%;
+}
+
+@media (max-width: 768px) {
+    /* For tablets */
+    .nomor-sertifikat {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    /* For mobile phones */
+    .nomor-sertifikat {
+        font-size: 15px;
+    }
+}
+
 .signature-ketua {
     width: 8%;
     position: absolute;

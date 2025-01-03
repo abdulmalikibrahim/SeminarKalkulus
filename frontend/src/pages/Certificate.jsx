@@ -192,6 +192,7 @@ const ImageCertificate = ({namaPeserta}) => {
     return(
         <div className='row d-flex justify-content-center' style={{width:"100%"}}>
             <div className="col-lg-7 col-11" style={{position:"relative"}} ref={certificateRef}>
+                <h3 className='nomor-sertifikat'>Nomor Sertifikat : 1144/1.1/SL/UPB/2024</h3>
                 <h2 className='name-participant text-light'>{namaPeserta.toUpperCase()}</h2>
                 {/* <img src="/images/TTDKETUA.png" className='signature-ketua' />
                 <img src="/images/TTDREKTOR.png" className='signature-rektor' /> */}
